@@ -10,6 +10,7 @@ import WaterTracker from './screens/WaterTracker';
 import SleepTracker from './screens/SleepTracker';
 import WorkoutTracker from './screens/WorkoutTracker';
 import JunkTracker from './screens/JunkTracker';
+import ProfileScreen from './screens/ProfileScreen';
 import { StatusBar } from 'expo-status-bar';
 
 const Stack = createStackNavigator();
@@ -25,12 +26,13 @@ function AppNavigator() {
         </>
       ) : (
         <>
-          <Stack.Screen name="Dashboard" component={DashboardScreen} />
-          <Stack.Screen name="FoodTracker" component={FoodTracker} />
-          <Stack.Screen name="WaterTracker" component={WaterTracker} />
-          <Stack.Screen name="SleepTracker" component={SleepTracker} />
-          <Stack.Screen name="WorkoutTracker" component={WorkoutTracker} />
-          <Stack.Screen name="JunkTracker" component={JunkTracker} />
+          <Stack.Screen name="Dashboard" component={DashboardScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="FoodTracker" component={FoodTracker} options={{ title: 'Log Food' }} />
+          <Stack.Screen name="WaterTracker" component={WaterTracker} options={{ title: 'Log Water' }} />
+          <Stack.Screen name="SleepTracker" component={SleepTracker} options={{ title: 'Log Sleep' }} />
+          <Stack.Screen name="WorkoutTracker" component={WorkoutTracker} options={{ title: 'Log Workout' }} />
+          <Stack.Screen name="JunkTracker" component={JunkTracker} options={{ title: 'Log Junk Food' }} />
+          <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
         </>
       )}
     </Stack.Navigator>
