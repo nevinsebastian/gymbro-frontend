@@ -1,20 +1,49 @@
+import React, { useContext } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { AuthProvider, AuthContext } from './context/AuthContext';
+import LoginScreen from './screens/LoginScreen';
+import SignupScreen from './screens/SignupScreen';
+import DashboardScreen from './screens/DashboardScreen';
+import FoodTracker from './screens/FoodTracker';
+import WaterTracker from './screens/WaterTracker';
+import SleepTracker from './screens/SleepTracker';
+import WorkoutTracker from './screens/WorkoutTracker';
+import JunkTracker from './screens/JunkTracker';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 
-export default function App() {
+const Stack = createStackNavigator();
+
+function AppNavigator() {
+  const { userToken } = useContext(AuthContext);
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Stack.Navigator>
+      {userToken == null ? (
+        <>
+          <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Signup" component={SignupScreen} options={{ headerShown: false }} />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="Dashboard" component={DashboardScreen} />
+          <Stack.Screen name="FoodTracker" component={FoodTracker} />
+          <Stack.Screen name="WaterTracker" component={WaterTracker} />
+          <Stack.Screen name="SleepTracker" component={SleepTracker} />
+          <Stack.Screen name="WorkoutTracker" component={WorkoutTracker} />
+          <Stack.Screen name="JunkTracker" component={JunkTracker} />
+        </>
+      )}
+    </Stack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <AuthProvider>
+      <NavigationContainer>
+        <AppNavigator />
+        <StatusBar style="auto" />
+      </NavigationContainer>
+    </AuthProvider>
+  );
+}
